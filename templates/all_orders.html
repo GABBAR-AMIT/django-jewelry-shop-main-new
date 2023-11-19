@@ -1,0 +1,53 @@
+{% extends "abase.html" %}
+
+{% block page %}
+<div class="container px-4" style="margin-top: 70px;">
+    <div class="row gx-5">
+        <div class="col-sm-3 shadow rounded-5" style="background:#FCBF49; margin-right:10px;">
+            <div class="p-3">
+            <form method="post">
+                <div class="mb-3 ">
+                    <label for="start_date" class="form-label">Start Date</label>
+                    <input type="date" class="form-control" id="start_date" name='start'>
+                </div>
+                <div class="mb-3">
+                    <label for="end_date" class="form-label">End Date</label>
+                    <input type="date" class="form-control" id="end_date" name='end'>
+                </div>
+                <button type="submit" class="btn btn-primary form-control">Submit</button>
+            </form>
+        </div>
+        </div>
+        <div class='col shadow rounded-5' style="background:#F77F00; margin-left:10px;">
+            <div class="p-3" style="max-height: 300px; overflow-y: auto;">
+            <table class="table" style="--bs-table-bg:#F77F00;">
+                <thead>
+                  <tr>
+                    <th scope="col">Order ID</th>
+                    <th scope="col">User</th>
+                    <th scope="col">Shipping Address</th>
+                    <th scope="col">Ordered Date</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Total Price</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr>
+                        <td>{{ order.order_id }}</td>
+                        <td>{{ order.user.username }}</td>
+                        <td>{{ order.address }}</td>
+                        <td>{{ order.ordered_date }}</td>
+                        <td>{{ order.status }}</td>
+                        <td>{{ order.total_price }}</td> 
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock page %}

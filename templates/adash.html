@@ -1,0 +1,46 @@
+{% extends "abase.html" %}
+{% block page %}
+<div class="container text-center" style="margin-top: 70px;">
+    <div class="row align-items-start">
+      <H2> Sales </H2>
+      <hr>
+      <div class="col" >
+        <div class="card" style="background: #D62828; color: #003049;">
+            <div class="card-body">
+                <h5 class="card-title">Today's</h5>
+                <h2>INR {{day}}</h2>
+            </div>
+          </div>
+      </div>
+      <div class="col">
+        <div class="card" style="background: #F77F00; color: #003049;">
+            <div class="card-body">
+                <h5 class="card-title">Weekly</h5>
+                <h2>INR {{week}}</h2>
+            </div>
+          </div>
+      </div>
+      <div class="col">
+        <div class="card" style="background: #FCBF49; color: #003049;">
+            <div class="card-body">
+                <h5 class="card-title">Monthly</h5>
+                <h2>INR {{month}}</h2>
+            </div>
+          </div>
+      </div>
+      <div class="col">
+        <div class="card" style="background: #EAE2B7; color: #003049;">
+            <div class="card-body">
+                <h5 class="card-title">Yearly</h5>
+                <h2>INR {{year}}</h2>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div>
+    
+</div>
+
+{% endblock page %}

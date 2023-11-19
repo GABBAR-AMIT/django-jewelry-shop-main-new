@@ -1,0 +1,184 @@
+{% extends "abase.html" %}
+{% block page %}
+<div class="container text-center" style="margin-top: 110px;">
+    <div class="row" style="font-size: 20px;">
+        <div class="col shadow rounded-5" style="background:#FCBF49; margin-right:10px; ">
+            <div class="p-5">
+                <H2> Add Category</H2><hr>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <!-- Category Fields -->
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Name:</label>
+                                <input type="text" id="name" class="form-control" name="name" required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="slug" class="form-label">Slug:</label>
+                                <input type="text" id="slug" name="slug" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <!-- Upload Category Image -->
+                            <div class="mb-3">
+                                <label for="category_image" class="form-label">Image:</label>
+                                <input type="file" id="category_image" name="category_image" class="form-control" accept="image/*">
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="description" class="form-label">Description:</label>
+                                <textarea id="description" name="description" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div><hr>
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="is_active" class="form-label">Is Active?</label>
+                                <input type="checkbox" id="is_active" name="is_active">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="is_featured" class="form-label">Is Featured?</label>
+                                <input type="checkbox" id="is_featured" name="is_featured">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button type="submit" class="btn btn-success">Save Category</button>
+                    </div>
+                </form><br>
+                <br>
+                <H2> Add Colors</H2><hr>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Color</label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" name="colorname" aria-describedby="emailHelp" required>
+                    </div>
+                    <button type="submit" class="btn btn-success form-control">Submit</button>
+                </form>
+            </div>
+        </div>  
+    
+        <div class="col shadow rounded-5" style="background:#F77F00; margin-left:10px;">
+            <div class="p-5">
+                <H2> Add Products</H2><hr>
+                <form method="post" enctype="multipart/form-data" class="container">
+                    {% csrf_token %}
+                    <!-- Category Field (Dropdown for selecting a category) -->
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="category" class="form-label">Category:</label>
+                                <select id="category" name="category" class="form-select" required>
+                                    <option value="" disabled selected>Select a category</option>
+                                    {% for category in categories %}
+                                        <option value="{{ category.id }}">{{ category.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class='col'>
+                            <div class="mb-3">
+                                <label for="title" class="form-label">Name:</label>
+                                <input type="text" id="title" class="form-control" name="title" required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="price" class="form-label">Price:</label>
+                                <input type="text" id="price" class="form-control" name="price" required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="description" class="form-label">Description:</label>
+                                <textarea id="description" class="form-control" name="description" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="slug" class="form-label">Slug:</label>
+                                <input type="text" id="slug" class="form-control" name="slug" required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="sku" class="form-label">Unique ID:</label>
+                                <input type="text" id="sku" class="form-control" name="sku" required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="short_description" class="form-label">Short Desc:</label>
+                                <textarea id="short_description" class="form-control" name="short_description" required></textarea>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="detail_description" class="form-label">Detail Desc:</label>
+                                <textarea id="detail_description" class="form-control" name="detail_description"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                        <!--active -->
+                        <hr>
+                        <div class="row">
+                            <div class="col">
+                                <div class="mb-3">
+                                    <label for="is_active" class="form-label">Is Active?</label>
+                                    <input type="checkbox" id="is_active" name="is_active">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="mb-3">
+                                    <label for="is_featured" class="form-label">Is Featured?</label>
+                                    <input type="checkbox" id="is_featured" name="is_featured">
+                                </div>
+                            </div>
+                        </div>
+                    <hr>
+                    <!-- Color Fields (Allow user to add multiple colors) -->
+                    <div class="color-container">
+                        <div id="productColors">
+                            <div class="color-group">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="colorName{{ color_name}}">Color : </label>
+                                            <select class="form-control" id="colorName{{ color.id }}" name="color_name">
+                                                {% for color in colors %}
+                                                <option value="{{ color.id }}">{{ color.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="images{{ color_name }}">Images :</label>
+                                            <input type="file" multiple class="form-control" id="images{{ color_name }}" name="images">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                        <!-- Add more color containers for additional colors -->
+                    </div> 
+                    <button type="submit" class="btn btn-success form-control">Save Product</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock page %}

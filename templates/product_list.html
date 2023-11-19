@@ -1,0 +1,63 @@
+{% extends "abase.html" %}
+{% block page %}
+<div class="containier" style="padding: 80px;">
+    <!--search form -->
+    <div class="row justify-content-evenly">
+        <form method="post">
+            {% csrf_token %}
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Product Name" aria-label="Recipient's username" aria-describedby="button-addon2" name="product_name" required>
+                <button class="btn btn-outline-secondary" type="submit" id="button-addon2" style="background: #003049; color:#D62828; font-size:22px;">Search</button>
+            </div>
+        </form>
+    </div>
+    <hr>
+    <!-- Display section-->
+    <div class="row justify-content-evenly text-center">
+        <div class="col align-self-center d-flex">
+        {% for product in products %}
+            {% for product_color in product.productcolor_set.all %}
+            <div class="card" style="margin: 10px;">
+                    <div class="product-color">
+                        <div class="product-images">
+                            <div id="carouselExample{{product.id}}{{product_color.id}}" class="carousel slide">
+                                <div class="carousel-inner">
+                                    {% for product_image in product_color.productimage_set.all %}
+                                        {% if product_image == product_color.productimage_set.all|first %}
+                                            <div class="carousel-item active">
+                                                <img src="{{ product_image.image.url }}" alt="{{ product_image.image.alt_text }}" width="260px" height="260px">
+                                            </div>
+                                        {% else %}
+                                            <div class="carousel-item">
+                                                <img src="{{ product_image.image.url }}" alt="{{ product_image.image.alt_text }}" width="260px" height="260px">
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                    
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample{{product.id}}{{product_color.id}}" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                  </button>
+                                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample{{product.id}}{{product_color.id}}" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                  </button>
+                            </div>
+                        </div> <hr>
+                        <h5 class="card-title">Color : {{ product_color.color.name }}</h5>
+                    </div>
+                
+                <div class="card-body">
+                    <h3 class="card-title">{{product.name}}</h3>
+                    <a href="edit/{{product.id}}/{{product_color.id}}">Edit</a>
+                    <a href="delete/{{product.id}}">Delete</a>
+                </div>
+            </div> 
+            {% endfor %}
+        {% endfor %}  
+        </div>       
+    </div>
+      
+</div>
+{% endblock page %}

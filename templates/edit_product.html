@@ -1,0 +1,127 @@
+{% extends "abase.html" %}
+{% block page %}
+<div class="container " style="margin-top: 70px;">
+    <div class="row" style="font-size: 20px;">
+        <div class="col shadow rounded-5" style="background:#F77F00; margin-left:10px;">
+            <div class="p-5">
+                <H2> Edit Products</H2><hr>
+                <form method="post" enctype="multipart/form-data" class="container">
+                    {% csrf_token %}
+                    <!-- Category Field (Dropdown for selecting a category) -->
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="category" class="form-label">Category:</label>
+                                <select id="category" name="category" class="form-select" required>
+                                    {% for category in category %}
+                                        <option value="{{ category.id }}">{{ category.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class='col'>
+                            <div class="mb-3">
+                                <label for="title" class="form-label">Name:</label>
+                                <input type="text" id="title" class="form-control" name="title" value="{{product.name}}" required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="price" class="form-label">Price:</label>
+                                <input type="text" id="price" class="form-control" value="{{product.price}}" name="price" required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="description" class="form-label">Description:</label>
+                                <textarea id="description" class="form-control" name="description" required>{{product.description}}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="slug" class="form-label">Slug:</label>
+                                <input type="text" id="slug" class="form-control" name="slug" value="{{product.slug}}" required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="sku" class="form-label">Unique ID:</label>
+                                <input type="text" id="sku" class="form-control" name="sku" value="{{product.sku}}" required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="short_description" class="form-label">Short Desc:</label>
+                                <textarea id="short_description" class="form-control" name="short_description" required>{{product.short_description}}</textarea>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="detail_description" class="form-label">Detail Desc:</label>
+                                <textarea id="detail_description" class="form-control" name="detail_description">{{product.detail_description}}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                        <!--active -->
+                        <hr>
+                        <div class="row">
+                            <div class="col">
+                                <div class="mb-3">
+                                    <label for="is_active" class="form-label">Is Active?</label>
+                                    <input type="checkbox" id="is_active" name="is_active" value="1" {% if productcolor.is_active %}checked{% endif %}>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="mb-3">
+                                    <label for="is_featured" class="form-label">Is Featured?</label>
+                                    <input type="checkbox" id="is_featured" name="is_featured" {% if product.is_featured %}checked{% endif %}>
+                                </div>
+                            </div>
+                        </div>
+                    <hr>
+                    <!-- Color Fields (Allow user to add multiple colors) -->
+                    <div class="color-container">
+                        <div id="productColors">
+                            <div class="color-group">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="colorName{{ color_name}}">Color : {{productcolor.color}}</label>
+                                            <input type="text" multiple class="form-control" id="colorName{{ color_name}}" name="color_name" placeholder="{{productcolor.color}}" value="{{ productcolor.color.id }}" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="images{{ product_colors.id }}"> New Images :</label>
+                                            <input type="file" multiple class="form-control" id="images{{ product_colors.id }}" name="images">
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class='row'>
+                                            {% for img in productcolor.productimage_set.all %}
+                                            <div class="col">
+                                                <img src="{{img.image.url}}" width="200px" height="200px">
+                                            </div>
+                                            <a class="btn btn-danger" href="/adminlogin/delimg/{{img.id}}/{{product.id}}/{{productcolor.id}}">Delete</a>
+                                            {% endfor %}
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                        <!-- Add more color containers for additional colors -->
+                    </div> 
+                    <button type="submit" class="btn btn-success form-control">Update Product</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+  
+{% endblock page %}
